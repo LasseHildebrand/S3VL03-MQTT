@@ -7,14 +7,24 @@ services:
     volumes:
       - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
 
-  subscriber:
+
+  subscriber1:
     image: eclipse-mosquitto:2.0
     container_name: mqtt-subscriber
     depends_on:
       - mosquitto
     entrypoint: >
       sh -c "sleep 2 &&
-             mosquitto_sub -h mosquitto -t test/topic"
+             mosquitto_sub -h mosquitto -t test/topic1"
+
+  subscriber2:
+    image: eclipse-mosquitto:2.0
+    container_name: mqtt-subscriber
+    depends_on:
+      - mosquitto
+    entrypoint: >
+      sh -c "sleep 2 &&
+             mosquitto_sub -h mosquitto -t test/topic2"
 
   publisher:
     image: eclipse-mosquitto:2.0
